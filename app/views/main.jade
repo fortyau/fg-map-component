@@ -1,0 +1,107 @@
+#gmaps-container(ng-controller="MainCtrl")
+  .div(ng-controller="googleMapsController", ng-class="{'map-fullscreen':map.fullscreen}")
+    .box.box-gmaps(style="opacity: 0")
+      .box-content.box-gmaps-content(style="padding: 0px;")
+        .dropDownContainer.btn-fullscreen(ng-click="maximizeMap()")
+          .dropDownButton
+            .dropDownLabel
+              label
+                span(ng-show="map.fullscreen") Exit
+                | Full Screen
+        .dropDownContainer
+          .dropDownButton
+            .dropDownLabel Categories
+            .dropDownOptionsDiv
+              label.dropDownItemDiv( ng-click='toggleMarkerWindows()') Toggle Info Windows
+              .checkboxContainer
+                label(ng-repeat="(category, valueArray) in markerCategories")
+                  input(
+                  ng-model="visiblityBolean"
+                  type="checkbox"
+                  ng-change="showOrHideMarker(category, visiblityBolean)"
+                  ng-checked="true"
+                  )
+                  | {{ category }}
+        // The actual map
+        // All of the overlays live here.
+        google-map(
+        center='map.center'
+        zoom='map.zoom'
+        draggable='true'
+        refresh='map.refresh'
+        events='map.events'
+        bounds='map.bounds'
+        events="map.events"
+        control="map.control")
+          polygon(
+          ng-repeat="polygon in map.overlays.polygons track by $index"
+          path="polygon.path"
+          fill='polygon.fill'
+          stroke='polygon.stroke'
+          clickable='polygon.clickable'
+          draggable='polygon.editable'
+          editable='polygon.editable'
+          geodesic='polygon.geodesic'
+          icons='polygon.icons'
+          visible='polygon.visible'
+          zindex='polygon.zindex'
+          static='polygon.static'
+          events='polygon.events'
+          icons='polygon.icons')
+          // This is the one window that is shared by all of the polygons, It moves and is constantly updated.
+          // The window holds a copy of the active polygon object, It uses its information for display purposes
+          window(
+          ng-cloak
+          coords="map.window.coords"
+          show="map.window.showWindow"
+          options="map.window.options"
+          closeClick="makeOverlayActive()")
+            div.gmaps-window-marker
+              h3 {{map.window.property.property_name}}
+              h4 {{map.window.property.parcel_id}}
+              h4 {{map.window.property.ownership}}
+              //a.btn.btn-xs.btn-default(ng-href='#admin/property/{{map.window.property.id}}') Edit Property
+          // We use ng-if below because Marker.options.visibility is broken
+          marker(
+          ng-repeat="marker in map.overlays.markers"
+          ng-if="marker.options.visible"
+          coords="marker.coords"
+          icon="marker.icon"
+          options="marker.options"
+          click="makeOverlayActive(marker)"
+          events="marker.events")
+            window(
+            ng-cloak
+            coords="marker.coords"
+            show="marker.active"
+            options="marker.window.options"
+            closeClick="makeOverlayInactive(marker)")
+              div.gmaps-window-marker
+                //TODO this should probably be a computed property on the marker object
+                h3 {{getWaypointTitle(marker)}}
+                p.text-muted {{marker.description}}
+                p.text-muted {{getStackCount(marker)}}
+        // The Information Sidebar.
+        // Only visible if the map is in full screen mode and the map is not editable
+        // When a polygon is passed into the map it has attached to is the entire record attached to it.
+        .map-sidebar(ng-show='map.fullscreen')
+          .information(ng-repeat='polygon in map.overlays.polygons track by $index')
+            div.copy(ng-show='polygon.active')
+              h2 {{polygon.property.property_name}}
+              .text-muted Parcel ID: {{polygon.property.parcel_id}}
+              //.text-muted facGUID: {{polygon.property.facGuid}}
+              //.text-muted COID: {{polygon.property.coid}}
+              h4 Ownership: {{polygon.property.ownership}}
+              h4 Status: {{getPropertyStatus(polygon.property.status_id)}}
+              h4 Location:
+              .text-muted {{polygon.property.street_address_1}}
+              .text-muted {{polygon.property.street_address_2}}
+              .text-muted {{polygon.property.locality}}
+              .text-muted {{polygon.property.region}}
+              .text-muted {{polygon.property.postal_code}}
+              .text-muted {{polygon.property.country}}
+              //h4 Total sqft: {{polygon.property.sqft_total}}
+              //h4 Occupied sqft: {{polygon.property.sqft_occupied}}
+              h4 Acreage: {{polygon.property.acreage}}
+              //h4 Legal description:
+              //p {{polygon.property.legal_description}}
