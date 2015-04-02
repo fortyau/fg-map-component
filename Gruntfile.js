@@ -42,8 +42,8 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'development',
-            apiEndpoint: '',
-            apiKey: ''
+            apiEndpoint: 'https://apidev.hcafi.com/',
+            apiKey: 'H4BUUBkCZlK84DYanh2mntUoRXgcYIkG'
           }
         }
       },
@@ -124,7 +124,7 @@ module.exports = function (grunt) {
       jade: {
         files: ['<%= yeoman.app %>/views/{,*/}*.jade', '<%= yeoman.app %>/*.jade'],
         tasks: ['bowerInstall', 'jade:server']
-      }, 
+      },
       gruntfile: {
         files: ['Gruntfile.js']
       },
@@ -141,7 +141,7 @@ module.exports = function (grunt) {
       }
     },
 
-    
+
     stylus: {
       test: {
         options: {
@@ -168,9 +168,9 @@ module.exports = function (grunt) {
         }
       }
     },
-    
 
-    
+
+
     jade: {
       options: {
         pretty: true
@@ -194,7 +194,7 @@ module.exports = function (grunt) {
         }]
       }
     },
-    
+
 
     // The actual grunt server settings
     connect: {
@@ -277,7 +277,7 @@ module.exports = function (grunt) {
     bowerInstall: {
       app: {
         src: ['<%= yeoman.app %>/index.jade'],
-        
+
         ignorePath: '<%= yeoman.app %>/'
       }
     },
