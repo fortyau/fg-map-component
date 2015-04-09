@@ -4,11 +4,10 @@
 // Then there is a replace function.
 // THe replace function will take this file and start swapping bits in and out of it.
 // It will take the component.js file and add the entirety of this file to the bottom of it.
-// It will also go through and take any variables such as {{appname}} or {{url}}
-// after that it will take the contents of main.html and swap it for {{main.html}}
+// It will also go through and take any variables and replace them
+// after that it will take the contents of main.html and swap it inline
 
 // It will then also swap out the loadernator init script, and replace it with one that has a callback
-// >>> {{scriptAppName}}.loadonater.process_project_dependencies( {{scriptAppName}}.dependencies );
 
 // This callback is ran after all of the loadernator dependencies are loaded into the dom
 // It will inject the html template,
@@ -17,7 +16,7 @@
 // then it should be ready for you to call
 
 
-{{scriptAppName}}.injector: {
+{{scriptAppName}}.injector = {
     template: '<div ng-app="{{scriptAppName}}" id="ng-app">{{main.html}}</div>',
 
     run: function(){

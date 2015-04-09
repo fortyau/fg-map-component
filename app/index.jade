@@ -51,27 +51,20 @@ body(ng-app="fgMapComponentApp")
     ga('create', 'UA-XXXXX-X');
     ga('send', 'pageview');
 
-  <!--[if lt IE 9]>
-  script(src="bower_components/es5-shim/es5-shim.js")
-  script(src="bower_components/json3/lib/json3.min.js")
-  <![endif]-->
-
   script(src='//maps.googleapis.com/maps/api/js?libraries=drawing,geometry&sensor=false')
 
 
   // build:js scripts/vendor.js
   // bower:js
   script(src='bower_components/jquery/dist/jquery.js')
-  script(src='bower_components/es5-shim/es5-shim.js')
   script(src='bower_components/angular/angular.js')
-  script(src='bower_components/json3/lib/json3.min.js')
+  script(src='bower_components/angular-fg-authenticate/directive.js')
   script(src='bower_components/bootstrap/dist/js/bootstrap.js')
   script(src='bower_components/angular-resource/angular-resource.js')
   script(src='bower_components/angular-cookie/angular-cookie.js')
   script(src='bower_components/angular-sanitize/angular-sanitize.js')
   script(src='bower_components/angular-route/angular-route.js')
   script(src='bower_components/underscore/underscore.js')
-  script(src='bower_components/angular-fg-authenticate/directive.js')
   script(src='bower_components/lodash/dist/lodash.compat.js')
   script(src='bower_components/angular-google-maps/dist/angular-google-maps.js')
   script(src='bower_components/restangular/dist/restangular.js')

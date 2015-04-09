@@ -1,4 +1,4 @@
-// Generated on 2015-04-02 using generator-fg-component 0.9.6
+// Generated on 2015-04-07 using generator-fg-component 0.9.9
 'use strict';
 
 // # Globbing
@@ -373,7 +373,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>/images',
-          src: '{,*/}*.{png,jpg,jpeg,gif}',
+          src: ['{,*/}*.{png,jpg,jpeg,gif}', '!*.js'],
           dest: '<%= yeoman.dist %>/images'
         }]
       }
@@ -512,7 +512,12 @@ module.exports = function (grunt) {
         options: {
           dest: '<%= yeoman.dist %>/componentize.js',
           name: '<%= yeoman.appname %>',
-          app_name: '<%= yeoman.scriptAppName %>'
+          app_name: '<%= yeoman.scriptAppName %>',
+          deps:{
+            js: [],
+            css:[
+            ]
+          }
         }
       }
     },
@@ -531,7 +536,7 @@ module.exports = function (grunt) {
           },
           { // Take the default init and replace it with one that has a callback, it will call the injector run function from above
             from: '<%= yeoman.scriptAppName %>.loadonater.process_project_dependencies(<%= yeoman.scriptAppName %>.dependencies);',
-            to:   '<%= yeoman.scriptAppName %>.loadonater.process_project_dependencies(<%= yeoman.scriptAppName %>.dependencies); <%= yeoman.scriptAppName %>.injector.run )'
+            to:   '<%= yeoman.scriptAppName %>.loadonater.process_project_dependencies(<%= yeoman.scriptAppName %>.dependencies, <%= yeoman.scriptAppName %>.injector.run );'
           },
           {
             from: '{{url}}',
@@ -586,7 +591,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
-      return grunt.task.run(['build', 'connect:dist:keepalive']);
+      return grunt.task.run(['connect:dist:keepalive']);
     }
 
     grunt.task.run([
@@ -599,6 +604,7 @@ module.exports = function (grunt) {
       'watch'
     ]);
   });
+
 
   grunt.registerTask('server', 'DEPRECATED TASK. Use the "serve" task instead', function (target) {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
