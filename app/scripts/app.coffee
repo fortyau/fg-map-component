@@ -3,28 +3,17 @@
 angular
   .module('fgMapComponentApp', [
     'ipCookie',
-    'ngResource',
-    'ngSanitize',
-    'ngRoute',
     'mapModule',
     'restangular',
     'config',
     'fgAuthenticate'
   ])
 
-  .config ($httpProvider, RestangularProvider, $routeProvider) ->
+  .config ($httpProvider, RestangularProvider) ->
     # Defaults to be used on every request.
     $httpProvider.defaults.useXDomain = true
     RestangularProvider.setDefaultHeaders({ "Content-Type": "application/json" })
     RestangularProvider.setBaseUrl "https://apidev.hcafi.com/"
-
-    $routeProvider
-      .when '/',
-        templateUrl: 'views/main.html'
-        controller: 'MainCtrl'
-      .otherwise
-        redirectTo: '/'
-
 
 
   .run ( $injector, Restangular, $rootScope, fgAuthService)->

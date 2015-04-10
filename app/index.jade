@@ -38,7 +38,8 @@ body(ng-app="fgMapComponentApp")
 
   // Add your site or application content here
 
-  div.container(ng-view)
+
+  div.container(ng-include="'views/main.jade'")
 
 
   // Google Analytics: change UA-XXXXX-X to be your site's ID
@@ -60,10 +61,7 @@ body(ng-app="fgMapComponentApp")
   script(src='bower_components/angular/angular.js')
   script(src='bower_components/angular-fg-authenticate/directive.js')
   script(src='bower_components/bootstrap/dist/js/bootstrap.js')
-  script(src='bower_components/angular-resource/angular-resource.js')
   script(src='bower_components/angular-cookie/angular-cookie.js')
-  script(src='bower_components/angular-sanitize/angular-sanitize.js')
-  script(src='bower_components/angular-route/angular-route.js')
   script(src='bower_components/underscore/underscore.js')
   script(src='bower_components/lodash/dist/lodash.compat.js')
   script(src='bower_components/angular-google-maps/dist/angular-google-maps.js')

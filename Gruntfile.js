@@ -514,7 +514,10 @@ module.exports = function (grunt) {
           name: '<%= yeoman.appname %>',
           app_name: '<%= yeoman.scriptAppName %>',
           deps:{
-            js: [],
+            js: [{
+              name: "angular-fg-authenticate",
+              filename: "angular-fg-authenticate/directive.js"
+            }],
             css:[
             ]
           }
